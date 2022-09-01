@@ -21,7 +21,6 @@ ExclusiveArch:  %{rust_arches}
 
 BuildRequires:  rust-packaging
 BuildRequires:  cargo
-BuildRequires:  openssl-devel
 BuildRequires:  alsa-lib-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  systemd-rpm-macros
