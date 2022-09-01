@@ -1,0 +1,16 @@
+[Unit]
+Description=An open source client for Spotify, with support for Spotify Connect 
+Documentation=https://github.com/librespot-org/librespot/
+Wants=sound.target
+After=sound.target
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+EnvironmentFile=-%h/.config/librespot/librespot.env
+ExecStart=/usr/bin/librespot $SERVICE_COMMAND_LINE_OPTIONS
+Restart=always
+RestartSec=12
+
+[Install]
+WantedBy=default.target
