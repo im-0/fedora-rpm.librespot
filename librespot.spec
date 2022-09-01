@@ -1,6 +1,6 @@
 Name:       librespot
 Version:    0.4.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    An open source client for Spotify, with support for Spotify Connect 
 
 License:    MIT
@@ -15,7 +15,7 @@ Source0:    https://github.com/librespot-org/librespot/archive/v%{version}/libre
 Source1:    librespot-%{version}.cargo-vendor.tar.xz
 Source2:    config.toml
 
-Source3:    librespot.service
+Source3:    librespot@.service
 
 ExclusiveArch:  %{rust_arches}
 
@@ -25,6 +25,9 @@ BuildRequires:  alsa-lib-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  avahi-compat-libdns_sd-devel
+
+Requires(post):  systemd
+Requires(preun): systemd
 
 
 %description
@@ -60,18 +63,21 @@ cp %{SOURCE3} %{buildroot}/%{_userunitdir}/
 
 %files
 %{_bindir}/librespot
-%{_userunitdir}/librespot.service
+%{_userunitdir}/librespot@.service
 %license LICENSE
 
 
 %post
-%systemd_user_post %{name}.service
+%systemd_user_post %{name}@.service
 
 
 %preun
-%systemd_user_preun %{name}.service
+%systemd_user_preun %{name}@.service
 
 
 %changelog
+* Thu Sep 01 2022 Ivan Mironov <mironov.ivan@gmail.com> - 0.4.2-2
+- Allow running multiple instances with different output devices
+
 * Thu Sep 01 2022 Ivan Mironov <mironov.ivan@gmail.com> - 0.4.2-1
 - Initial packaging
